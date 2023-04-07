@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clicker game</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.1.0/modern-normalize.min.css"
+    integrity="sha512-wpPYUAdjBVSE4KJnH1VR1HeZfpl1ub8YT/NKx4PuQ5NmX2tKuGu6U/JRp5y+Y8XG2tV+wKQpNHVUX03MfMFn9Q=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="css/common.css" />
+  <link rel="stylesheet" href="css/register.css" />
+  <link rel="stylesheet" href="css/game.css">
+  <link rel="stylesheet" href="css/header.css">
+</head>
+
+<body>
+  <header class="header">
+    <div class="container">
+      <ul class="header__list">
+        <li class="header__item">
+          <p>Name:</p>
+          <p>Ivan</p>
+        </li>
+        <li class="header__item">
+          <p>Coins:</p>
+          <p>123</p>
+        </li>
+        <li class="header__item">
+          <p>Level:</p>
+          <p>3</p>
+        </li>
+        <li class="header__item">
+          <p>Time:</p>
+          <p>01:23</p>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <!-- add  isGameMode to position Ork at the bottom-->
+    <div class="container main__container">
+      <!-- <h1 class="title">Welcome to Clicker</h1> -->
+
+      <!-- <form class="js-form form-auth">
+        <h2 class="form-auth__input-title">Create account</h2>
+
+        <div class="form-auth__wrapper">
+          <label class="form-auth__label">
+            Nickname
+            <input class="form-auth__input" type="text" name="nickname" placeholder="Write your nickname" min="3"
+              max="20" required />
+          </label>
+          <label class="form-auth__label">
+            Name
+            <input class="form-auth__input" type="text" name="username" placeholder="Write your name" min="3" max="20"
+              required />
+          </label>
+          <label class="form-auth__label">
+            E-mail
+            <input class="form-auth__input" type="email" name="email" placeholder="E-mail" required />
+          </label>
+        </div>
+
+        <button class="button js-submit-btn" type="submit">
+          Create user
+        </button>
+      </form> -->
+
+      <img class="img--ork" src="./assets/images/orks/ork_1.png" width="320px" height="320px" alt="ork">
+      <!-- <img class="img--ork" src="./assets/images/orks/ork_2.png" width="320px" height="320px" alt="ork"> -->
+      <!-- <img class="img--ork" src="./assets/images/orks/ork_3.png" width="320px" height="320px" alt="ork"> -->
+      <!-- <img class="img--ork" src="./assets/images/orks/ork_4.png" width="320px" height="320px" alt="ork"> -->
+      <!-- <img class="img--ork" src="./assets/images/orks/ork_5.png" width="320px" height="320px" alt="ork"> -->
+      <button class="button js-level-btn" type="button">
+        Earn coins
+      </button>
+    </div>
+  </main>
+  <script src="./index.js" type="module"></script>
+</body>
+
+</html>
