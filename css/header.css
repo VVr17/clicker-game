@@ -1,0 +1,57 @@
+/*  Header styles */
+.header {
+  padding-top: 16px;
+  padding-bottom: 16px;
+  background-color: var(--main-background-color);
+  backdrop-filter: blur(20px);
+
+  opacity: 0.5;
+  pointer-events: all;
+  visibility: visible;
+
+  transition: opacity var(--transition-timing),
+    visibility var(--transition-timing);
+}
+
+/* to hide header during registration */
+.header.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.stats {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 12px;
+}
+
+@media screen and (min-width: 768px) {
+  .stats {
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.stats__item {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  color: black;
+  opacity: 1;
+}
+
+.stats__value {
+  background-color: transparent;
+  width: 100%;
+  overflow-x: hidden;
+  border: none;
+  background-color: transparent;
+  color: inherit;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: inherit;
+  outline: none;
+}
