@@ -30,45 +30,51 @@
   <!-- custom styles -->
   <link rel="stylesheet" href="./css/common.css" />
   <link rel="stylesheet" href="./css/modal.css">
+  <link rel="stylesheet" href="./css/header.css">
   <link rel="stylesheet" href="./css/register.css" />
   <link rel="stylesheet" href="./css/game.css">
-  <link rel="stylesheet" href="./css/header.css">
 </head>
 
 <body>
   <!-- should be class="header is-hidden js-header" -->
   <header class="header js-header">
     <div class="container">
-      <ul class="stats">
-        <li class="stats__item">
-          <p>Nickname:</p>
-          <input class="stats__value js-nickname" type="text" name="nickname" value="" readonly />
-        </li>
-        <li class="stats__item">
-          <p>Coins:</p>
-          <input class="stats__value js-coins" type="text" name="name" value="0" readonly />
-        </li>
-        <li class="stats__item">
-          <p>Level:</p>
-          <input class="stats__value js-level" type="text" name="name" value="1" readonly />
-        </li>
-        <li class="stats__item">
-          <p>Time:</p>
-          <input class="stats__value js-time" type="text" name="name" value="00:00" readonly />
-        </li>
-      </ul>
+      <div class="game-data">
+        <ul class="game-data__list">
+          <li class="game-data__item user-data">
+            <p>Nickname:</p>
+            <input class="game-data__value js-nickname" type="text" name="nickname" value="" readonly />
+          </li>
+          <li class="game-data__item user-data">
+            <p>Email:</p>
+            <input class="game-data__value js-email" type="text" name="email" value="" readonly />
+          </li>
+        </ul>
+        <ul class="game-data__list">
+          <li class="game-data__item">
+            <p>Level coins:</p>
+            <input class="game-data__value js-coins" type="text" value="0" readonly />
+          </li>
+          <li class="game-data__item">
+            <p>Total coins:</p>
+            <input class="game-data__value js-totalCoins" type="text" value="0" readonly />
+          </li>
+          <li class="game-data__item">
+            <p>Level:</p>
+            <input class="game-data__value js-level" type="text" value="1" readonly />
+          </li>
+          <li class="game-data__item">
+            <p>Time:</p>
+            <input class="game-data__value js-time" type="text" name="name" value="00:00" readonly />
+          </li>
+        </ul>
+      </div>
     </div>
   </header>
 
   <main>
     <!-- should be class="container main__container js-container" -->
     <div class="container main__container js-container is-game-mode">
-
-      <!-- <img class="game__img" src="./assets/images/orks/ork_1.png" width="320px" height="320px" alt="ork"> -->
-      <!-- <img class="game__img" src="./assets/images/orks/ork_2.png" width="320px" height="320px" alt="ork"> -->
-      <!-- <img class="game__img" src="./assets/images/orks/ork_3.png" width="320px" height="320px" alt="ork"> -->
-      <!-- <img class="game__img" src="./assets/images/orks/ork_4.png" width="320px" height="320px" alt="ork"> -->
-      <!-- <img class="game__img" src="./assets/images/orks/ork_5.png" width="320px" height="320px" alt="ork"> -->
       <button class="button game__button js-get-coins-btn is-game-mode" type="button">
         Earn coins
       </button>
@@ -76,7 +82,7 @@
   </main>
 
   <!-- modal with registration form -->
-  <div class="backdrop js-registration-modal is-hidden">
+  <div class="backdrop js-registration-modal">
     <div class="modal">
       <h1 class="title">Welcome to Clicker</h1>
 
@@ -115,12 +121,7 @@
           <use href="./assets/icons.svg#icon-close"></use>
         </svg>
       </button>
-      <!-- here should be -- you will go to another level -->
-      <div class="message">
-        <p>Congratulation!</p>
-        <p>You have reached 2 Level</p>
-        <p>Your score: 10</p>
-        <p>Your time: 00:00</p>
+      <div class="message js-message">
       </div>
     </div>
   </div>

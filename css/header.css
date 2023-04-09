@@ -5,7 +5,7 @@
   background-color: var(--main-background-color);
   backdrop-filter: blur(20px);
 
-  opacity: 0.5;
+  opacity: 0.8;
   pointer-events: all;
   visibility: visible;
 
@@ -20,32 +20,53 @@
   visibility: hidden;
 }
 
-.stats {
+.game-data {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.game-data__list {
+  display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
 @media screen and (min-width: 768px) {
-  .stats {
-    flex-wrap: nowrap;
+  .game-data__list {
+    flex-wrap: wrap;
     flex-direction: row;
-    justify-content: space-between;
   }
 }
 
-.stats__item {
+@media screen and (min-width: 1280px) {
+  .game-data__list {
+    flex-wrap: nowrap;
+  }
+}
+
+.game-data__item {
   display: flex;
-  justify-content: center;
   gap: 8px;
-  color: black;
+  color: var(--secondary-text-color);
   opacity: 1;
 }
 
-.stats__value {
+@media screen and (min-width: 768px) {
+  .game-data__item {
+    flex-basis: calc((100% - 12px) / 2);
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .game-data__list {
+    flex-basis: auto;
+  }
+}
+
+.game-data__value {
   background-color: transparent;
-  width: 100%;
+  width: 140px;
   overflow-x: hidden;
   border: none;
   background-color: transparent;
@@ -54,4 +75,20 @@
   font-size: 16px;
   font-weight: inherit;
   outline: none;
+}
+
+@media screen and (min-width: 768px) {
+  .game-data__value {
+    width: 170px;
+  }
+}
+
+.user-data {
+  color: var(--secondary-accent-color);
+}
+
+@media screen and (min-width: 768px) {
+  .user-data .game-data__value {
+    width: 200px;
+  }
 }

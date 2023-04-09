@@ -1,7 +1,8 @@
 /**
- * convert time in the format mm:ss
- * @param {number} milliseconds time
- * @returns time in the format mm:ss
+ * convertMsIntoTimeFormat function converts a time duration in milliseconds to the mm:ss format.
+ *
+ * @param {number} milliseconds - The time duration in milliseconds to be converted.
+ * @returns {string} - The converted time duration in the mm:ss format.
  */
 export const convertMsIntoTimeFormat = milliseconds => {
   let seconds = Math.floor(milliseconds / 1000); // calculate the number of seconds

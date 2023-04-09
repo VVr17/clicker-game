@@ -21,7 +21,7 @@ export default class Timer {
       this.#startTime = Date.now();
     }
 
-    this.#timerInterval = setInterval(() => this.updateTimer(), 300);
+    this.#timerInterval = setInterval(() => this.updateTimer(), 500);
   }
 
   pauseTimer() {
@@ -43,7 +43,7 @@ export default class Timer {
 
   // display timer in format mm:ss
   displayTimer() {
-    const timeDisplay = convertMsIntoTimeFormat(this.#elapsedTime);
-    timeInputRef.value = timeDisplay;
+    this.timeDisplay = convertMsIntoTimeFormat(this.#elapsedTime);
+    timeInputRef.value = this.timeDisplay;
   }
 }

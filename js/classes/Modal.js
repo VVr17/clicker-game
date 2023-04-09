@@ -23,9 +23,9 @@ export default class Modal {
       this.open(event)
     );
     this.refs.closeModalBtn?.addEventListener('click', () => this.close());
-    this.refs.modal?.addEventListener('click', event =>
-      this.onBackdropClick(event)
-    );
+    // this.refs.modal?.addEventListener('click', event =>
+    //   this.onBackdropClick(event)
+    // );
   }
 
   open(event) {
@@ -41,12 +41,12 @@ export default class Modal {
     document.removeEventListener('keydown', this.onEscKeyDown);
   };
 
-  onBackdropClick(event) {
-    if (event.target.closest('.js-modal')) {
-      return;
-    }
-    this.close();
-  }
+  // onBackdropClick(event) {
+  //   if (event.target.closest('.js-modal')) {
+  //     return;
+  //   }
+  //   this.close();
+  // }
 
   onEscKeyDown = event => {
     if (event.code !== 'Escape') {

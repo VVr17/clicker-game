@@ -1,7 +1,10 @@
+import { getLevelTheme } from './helpers/getLevelTheme.js';
 import { openGameMode } from './helpers/openGameMode.js';
 import {
+  containerRef,
   formRef,
   registrationModalRef,
+  userEmailRef,
   userNicknameRef,
 } from './utils/refs.js';
 
@@ -20,15 +23,22 @@ function onFormSubmit(event) {
     return;
   }
 
-  console.log(
-    'nickname, username, email',
-    nickname.value,
-    username.value,
-    email.value
-  );
+  const userData = {
+    nickname: nickname.value,
+    nickname: username.value,
+    email: email.value,
+  };
 
-  // display user nickname
+  //TODO: local storage - user data
+  // store user data in Local Storage
+  localStorage.setItem('user', JSON.stringify(userData));
+
+  // display user nickname and email
   userNicknameRef.value = nickname.value;
+  userEmailRef.value = email.value;
+
+  // to add enemy on the first level
+  containerRef.insertAdjacentHTML('afterbegin', getLevelTheme(1));
 
   openGameMode();
 
