@@ -83,12 +83,12 @@
   }
 }
 
-.user-data {
+.user-data__item {
   color: var(--secondary-accent-color);
 }
 
 @media screen and (min-width: 768px) {
-  .user-data .game-data__value {
+  .user-data__item .game-data__value {
     width: 200px;
   }
 }

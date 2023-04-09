@@ -12,15 +12,8 @@ export const containerRef = document.querySelector('.js-container');
 // headers ref
 export const headerRef = document.querySelector('.js-header');
 
-// user name ref
-export const userNicknameRef = document.querySelector('.js-nickname');
-export const userEmailRef = document.querySelector('.js-email');
-
-// stats refs
-export const coinsInputRef = document.querySelector('.js-coins');
-export const totalCoinsInputRef = document.querySelector('.js-totalCoins');
-export const levelInputRef = document.querySelector('.js-level');
-export const timeInputRef = document.querySelector('.js-time');
+// game data container ref
+export const gameDataContainerRef = document.querySelector('.js-game-data');
 
 // get coins button
 export const getCoinsBtnRef = document.querySelector('.js-get-coins-btn');

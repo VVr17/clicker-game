@@ -1,19 +1,13 @@
+import { changeLevelTheme } from '../helpers/changeLeveltheme.js';
+import { getCoinsBtnRef } from '../utils/refs.js';
+import { getMessageMarkup } from '../helpers/getMessageMarkup.js';
+import { getTargetedCoinsPerLevel } from '../helpers/getTargetedCoinsPerLevel.js';
+import { messageRef } from '../utils/refs.js';
 import Modal from '../classes/Modal.js';
 import Timer from '../classes/Timer.js';
-import { changeLevelTheme } from '../helpers/changeLevelTheme.js';
-import {
-  coinsInputRef,
-  getCoinsBtnRef,
-  levelInputRef,
-  totalCoinsInputRef,
-} from '../utils/refs.js';
-import { messageRef } from '../utils/refs.js';
-import { createMessageMarkup } from '../helpers/createMessageMarkup.js';
-import { getTargetedCoinsPerLevel } from '../helpers/getTargetedCoinsPerLevel.js';
 
-export const timer = new Timer();
+const timer = new Timer();
 
-// create message modal
 const messageModal = new Modal({
   modal: '[data-modal]',
   closeModalBtn: '[data-modal-close]',
@@ -29,6 +23,10 @@ export default class GameCounter {
   #totalCoins = 0;
   #level = 1;
 
+  #coinsInputRef;
+  #totalCoinsInputRef;
+  #levelInputRef;
+
   constructor() {}
 
   // collect coins
@@ -37,9 +35,10 @@ export default class GameCounter {
     if (!this.#isGameStarted) {
       this.#startGame();
       this.#getTargetedCoinsPerNextLevel();
+      this.#getGameStatsRefs();
     }
 
-    // if game is paused - unpause
+    // unpause game, if it is paused
     if (this.#IsGamePaused) {
       this.#unpauseGame();
     }
@@ -51,6 +50,12 @@ export default class GameCounter {
     if (this.#coins === this.#targetedCoinsPerLevel) {
       this.#updateLevel();
     }
+  }
+
+  #getGameStatsRefs() {
+    this.#coinsInputRef = document.querySelector('.js-coins');
+    this.#totalCoinsInputRef = document.querySelector('.js-totalCoins');
+    this.#levelInputRef = document.querySelector('.js-level');
   }
 
   // update level by reaching a target number of clicks
@@ -83,18 +88,18 @@ export default class GameCounter {
 
   // update displayed value
   #updateCoinsPerLevel() {
-    coinsInputRef.value = this.#coins;
+    this.#coinsInputRef.value = this.#coins;
   }
 
   #changeLevel() {
     this.#level += 1;
-    levelInputRef.value = this.#level;
+    this.#levelInputRef.value = this.#level;
   }
 
   // count total coins during the game
   #countTotalCoins() {
     this.#totalCoins += 1;
-    totalCoinsInputRef.value = this.#totalCoins;
+    this.#totalCoinsInputRef.value = this.#totalCoins;
   }
 
   #startGame() {
@@ -123,7 +128,7 @@ export default class GameCounter {
 
   // open message with results
   #openResultsNotification() {
-    messageRef.innerHTML = createMessageMarkup({
+    messageRef.innerHTML = getMessageMarkup({
       level: this.#level,
       coins: this.#totalCoins,
       targetedCoinsPerLevel: this.#targetedCoinsPerLevel,

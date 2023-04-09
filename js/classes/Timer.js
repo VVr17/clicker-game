@@ -1,5 +1,4 @@
 import { convertMsIntoTimeFormat } from '../helpers/convertMsIntoTimeFormat.js';
-import { timeInputRef } from '../utils/refs.js';
 
 export default class Timer {
   #timerInterval;
@@ -43,6 +42,7 @@ export default class Timer {
 
   // display timer in format mm:ss
   displayTimer() {
+    const timeInputRef = document.querySelector('.js-time');
     this.timeDisplay = convertMsIntoTimeFormat(this.#elapsedTime);
     timeInputRef.value = this.timeDisplay;
   }

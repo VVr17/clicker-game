@@ -1,16 +1,12 @@
-import { getLevelTheme } from './helpers/getLevelTheme.js';
+import { addUserDataMarkup } from './helpers/addUserDataMarkup.js';
+import { changeLevelTheme } from './helpers/changeLeveltheme.js';
+import { closeRegistrationForm } from './helpers/closeRegistrationForm.js';
+import { formRef } from './utils/refs.js';
 import { openGameMode } from './helpers/openGameMode.js';
-import {
-  containerRef,
-  formRef,
-  registrationModalRef,
-  userEmailRef,
-  userNicknameRef,
-} from './utils/refs.js';
+import { updateUserDataValues } from './helpers/updateUserDataValues.js';
 
 formRef.addEventListener('submit', onFormSubmit);
 
-// form submit handler to sign up user
 function onFormSubmit(event) {
   event.preventDefault();
   const { nickname, username, email } = event.currentTarget.elements;
@@ -29,20 +25,10 @@ function onFormSubmit(event) {
     email: email.value,
   };
 
-  //TODO: local storage - user data
-  // store user data in Local Storage
   localStorage.setItem('user', JSON.stringify(userData));
-
-  // display user nickname and email
-  userNicknameRef.value = nickname.value;
-  userEmailRef.value = email.value;
-
-  // to add enemy on the first level
-  containerRef.insertAdjacentHTML('afterbegin', getLevelTheme(1));
-
+  addUserDataMarkup();
+  updateUserDataValues(nickname.value, email.value);
+  changeLevelTheme(1);
+  closeRegistrationForm();
   openGameMode();
-
-  // to close registration form after submit
-  registrationModalRef.classList.add('is-hidden');
-  document.body.classList.remove('modal-open');
 }

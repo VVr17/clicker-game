@@ -1,5 +1,5 @@
 /**
- * createMessageMarkup function generates HTML markup for displaying a congratulation message.
+ * getMessageMarkup function generates HTML markup for displaying a congratulation message.
  *
  * @param {Object} options - An object containing the following properties:
  *   - level {number}: The level number the player has reached.
@@ -9,8 +9,7 @@
  *   - isGameFinished {boolean}: A flag indicating whether the game is finished or not. Default is `false`.
  *
  * @returns {string} - The generated HTML markup for the congratulation message.
- */
-export const createMessageMarkup = ({
+ */ export const getMessageMarkup = ({
   level,
   coins,
   timer,

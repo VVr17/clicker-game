@@ -36,56 +36,24 @@
 </head>
 
 <body>
-  <!-- should be class="header is-hidden js-header" -->
-  <header class="header js-header">
+  <header class="header js-header is-hidden">
     <div class="container">
-      <div class="game-data">
-        <ul class="game-data__list">
-          <li class="game-data__item user-data">
-            <p>Nickname:</p>
-            <input class="game-data__value js-nickname" type="text" name="nickname" value="" readonly />
-          </li>
-          <li class="game-data__item user-data">
-            <p>Email:</p>
-            <input class="game-data__value js-email" type="text" name="email" value="" readonly />
-          </li>
-        </ul>
-        <ul class="game-data__list">
-          <li class="game-data__item">
-            <p>Level coins:</p>
-            <input class="game-data__value js-coins" type="text" value="0" readonly />
-          </li>
-          <li class="game-data__item">
-            <p>Total coins:</p>
-            <input class="game-data__value js-totalCoins" type="text" value="0" readonly />
-          </li>
-          <li class="game-data__item">
-            <p>Level:</p>
-            <input class="game-data__value js-level" type="text" value="1" readonly />
-          </li>
-          <li class="game-data__item">
-            <p>Time:</p>
-            <input class="game-data__value js-time" type="text" name="name" value="00:00" readonly />
-          </li>
-        </ul>
-      </div>
+      <div class="game-data js-game-data"></div>
     </div>
   </header>
 
   <main>
-    <!-- should be class="container main__container js-container" -->
-    <div class="container main__container js-container is-game-mode">
-      <button class="button game__button js-get-coins-btn is-game-mode" type="button">
+    <div class="container main__container js-container">
+      <button class="button game__button js-get-coins-btn" type="button">
         Earn coins
       </button>
     </div>
   </main>
 
-  <!-- modal with registration form -->
+  <!-- registration form -->
   <div class="backdrop js-registration-modal">
     <div class="modal">
       <h1 class="title">Welcome to Clicker</h1>
-
       <form class="form-auth js-form">
         <h2 class="form-auth__input-title">Create account</h2>
 
@@ -113,7 +81,7 @@
     </div>
   </div>
 
-  <!-- modal about completing level -->
+  <!-- message notification -->
   <div class="backdrop is-hidden" data-modal>
     <div class="modal js-modal">
       <button class="btn-close" aria-label="close modal window" data-modal-close>
@@ -121,8 +89,7 @@
           <use href="./assets/icons.svg#icon-close"></use>
         </svg>
       </button>
-      <div class="message js-message">
-      </div>
+      <div class="message js-message"></div>
     </div>
   </div>
 
