@@ -1,11 +1,11 @@
-import { getCoinsBtnRef, messageRef } from '../utils/refs.js';
+import { messageRef } from '../utils/refs.js';
 import { getMessageMarkup } from '../helpers/getMessageMarkup.js';
 import { getTargetedCoinsPerLevel } from '../helpers/getTargetedCoinsPerLevel.js';
 import Timer from './Timer.js';
 
 const timer = new Timer();
 
-export default class GameSetter {
+export default class GameController {
   // game status
   isStarted = false;
   isPaused = false;
@@ -42,7 +42,7 @@ export default class GameSetter {
   /**
    * Change level counter and updates level stats element
    */
-  #changeLevel() {
+  #countLevel() {
     this.#level += 1;
     this.#levelInputRef.value = this.#level;
   }
@@ -94,6 +94,18 @@ export default class GameSetter {
     this.#coinsInputRef.value = this.#coins;
   }
 
+  //! new
+  #resetToInitialState() {
+    this.isStarted = false;
+    this.isTargetNumberCoinsReached = false;
+    this.toFinish = false;
+    this.isFinished = false;
+    this.#totalCoins = 0;
+    this.#level = 1;
+
+    //TODO: update DOM stats
+  }
+
   get level() {
     return this.#level;
   }
@@ -111,9 +123,15 @@ export default class GameSetter {
    * Specifies the message to be displayed upon finishing the game.
    */
   finish() {
+    this.isFinished = true;
     this.#targetedCoinsPerLevel = 0;
     this.#dropOfCoinsPerLevel();
-    getCoinsBtnRef.setAttribute('disabled', true);
+
+    //! new
+    //TODO: logic to start new game: isNeedToRestart? -> resetToInitialState
+    // collectCoinsBtnRef.setAttribute('disabled', true);
+    // collectCoinsBtnRef.innerHTML = 'Start new game';
+
     timer.stopTimer();
     this.#addCongratulationMessage();
   }
@@ -152,15 +170,15 @@ export default class GameSetter {
       this.#coins === this.#targetedCoinsPerLevel;
 
     if (this.#level === this.#finalLevel && this.isTargetNumberCoinsReached) {
-      this.isFinished = true;
+      this.toFinish = true;
     }
   }
 
   /**
    * Updates the level by changing the level, dropping all coins for the current level, retrieving the targeted coins for the next level.
    */
-  updateLevel() {
-    this.#changeLevel();
+  changeLevel() {
+    this.#countLevel();
     this.#dropOfCoinsPerLevel();
     this.#getTargetedCoinsPerNextLevel();
     this.#addCongratulationMessage();

@@ -33,6 +33,7 @@
 .modal {
   position: relative;
   width: 100%;
+  max-width: 620px;
   max-height: 95%;
   height: fit-content;
   padding: 24px;
@@ -46,66 +47,24 @@
   transition: transform var(--transition-timing);
 }
 
+.backdrop.is-hidden .modal {
+  transform: scale(0.3);
+}
+
 @media screen and (max-height: 540px) {
   .modal {
     overflow-y: scroll;
   }
 }
 
-@media screen and (min-width: 480px) and (orientation: portrait) {
-  .modal {
-    position: relative;
-    max-width: 700px;
-  }
-}
-
-@media screen and (min-width: 480px) and (orientation: landscape) {
-  .modal {
-    position: relative;
-    margin: auto;
-    transform: scale(1);
-  }
-}
-
 @media screen and (min-width: 768px) {
-  .modal {
-    max-width: 700px;
-  }
-}
-
-@media screen and (min-width: 768px) and (min-height: 655px) {
   .modal {
     position: absolute;
     top: 50%;
     left: 50%;
-    max-width: 700px;
     transform: translate(-50%, -50%) scale(1);
   }
-}
 
-@media screen and (min-width: 1280px) {
-  .modal {
-    max-width: 800px;
-  }
-}
-
-.backdrop.is-hidden .modal {
-  transform: scale(0.3);
-}
-
-@media screen and (min-width: 480px) and (orientation: portrait) {
-  .backdrop.is-hidden .modal {
-    transform: scale(0.3);
-  }
-}
-
-@media screen and (min-width: 480px) and (orientation: landscape) {
-  .backdrop.is-hidden .modal {
-    transform: scale(0.3);
-  }
-}
-
-@media screen and (min-width: 768px) and (min-height: 655px) {
   .backdrop.is-hidden .modal {
     transform: translate(-50%, -50%) scale(0.3);
   }

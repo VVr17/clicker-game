@@ -19,8 +19,7 @@ export const getMessageMarkup = ({
 }) => {
   if (isGameFinished) {
     return `
-    <p>Congratulation!</p>
-    <p>You won</p>
+    <p>Congratulation! You won!</p>
     <p>Your score: ${coins} coins</p>
     <p>Your time: ${timer}</p>
   `;

@@ -1,5 +1,5 @@
 - on finish - message- add button: 'start again'
-- add icons ti registration inputs
+- add notification that the game is paused
 
 # Clicker Heroes
 

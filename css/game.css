@@ -2,29 +2,7 @@
 .game__img {
   width: 320px;
   margin: 0 auto;
-}
-
-@media screen and (min-width: 768px) {
-  .game__img {
-    width: 460px;
-    margin: 0 auto;
-  }
-}
-
-.game__button {
-  opacity: 0;
-  pointer-events: none;
-  visibility: hidden;
-
-  transition: opacity var(--transition-timing),
-    visibility var(--transition-timing);
-}
-
-/* enable button in game mode */
-.game__button.is-game-mode {
-  opacity: 1;
-  pointer-events: all;
-  visibility: visible;
+  cursor: pointer;
 }
 
 .message {

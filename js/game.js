@@ -1,9 +1,9 @@
 import { changeLevelTheme } from './helpers/changeLeveltheme.js';
-import { getCoinsBtnRef } from './utils/refs.js';
-import GameSetter from './classes/GameSetter.js';
+import { enemyRef } from './utils/refs.js';
+import GameController from './classes/GameController.js';
 import Modal from './classes/Modal.js';
 
-const game = new GameSetter();
+const game = new GameController();
 const messageModal = new Modal({
   modal: '[data-modal]',
   closeModalBtn: '[data-modal-close]',
@@ -11,9 +11,13 @@ const messageModal = new Modal({
 
 messageModal.addHandlers();
 
-getCoinsBtnRef.addEventListener('click', onGameButtonClick);
+enemyRef.addEventListener('click', gameHandler);
 
-function onGameButtonClick() {
+function gameHandler() {
+  if (game.isFinished) {
+    return;
+  }
+
   if (!game.isStarted) {
     game.start();
   }
@@ -25,7 +29,7 @@ function onGameButtonClick() {
   game.collectCoins();
   game.updateGameStatus();
 
-  if (game.isFinished) {
+  if (game.toFinish) {
     game.finish();
     messageModal.open();
     return;
@@ -33,8 +37,7 @@ function onGameButtonClick() {
 
   if (game.isTargetNumberCoinsReached) {
     game.pause();
-    game.updateLevel();
-
+    game.changeLevel();
     messageModal.open();
     changeLevelTheme(game.level);
   }
