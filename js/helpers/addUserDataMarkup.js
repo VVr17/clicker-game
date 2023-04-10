@@ -36,8 +36,8 @@ export const addUserDataMarkup = () => {
             `
           )
           .join('')}     
-        </ul>
-  `;
+      </ul>
+    `;
 
   gameDataContainerRef.insertAdjacentHTML('afterbegin', userData + gameData);
 };

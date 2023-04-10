@@ -2,8 +2,11 @@ import { addUserDataMarkup } from './helpers/addUserDataMarkup.js';
 import { changeLevelTheme } from './helpers/changeLeveltheme.js';
 import { closeRegistrationForm } from './helpers/closeRegistrationForm.js';
 import { formRef } from './utils/refs.js';
+import Notification from './classes/Notification.js';
 import { openGameMode } from './helpers/openGameMode.js';
 import { updateUserDataValues } from './helpers/updateUserDataValues.js';
+
+const notification = new Notification();
 
 formRef.addEventListener('submit', onFormSubmit);
 
@@ -26,6 +29,8 @@ function onFormSubmit(event) {
   };
 
   localStorage.setItem('user', JSON.stringify(userData));
+
+  notification.success("You've been successfully signed in");
   addUserDataMarkup();
   updateUserDataValues(nickname.value, email.value);
   changeLevelTheme(1);

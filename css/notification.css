@@ -1,0 +1,57 @@
+/* toast notification */
+.notification {
+  position: absolute;
+  top: 0;
+  z-index: 100;
+
+  width: 95%;
+  min-width: 100px;
+  min-height: 40px;
+  padding: 10px;
+
+  font-size: 16px;
+
+  color: var(--secondary-text-color);
+  border-radius: 10px;
+  box-shadow: 5px 10px 10px 0px rgba(31, 29, 31, 0.48);
+
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+
+  transition: opacity var(--transition-timing-notification),
+    visibility var(--transition-timing-notification),
+    background-color var(--transition-timing-notification);
+}
+
+@media screen and (max-width: 767.98px) {
+  .notification {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .notification {
+    right: 0;
+    width: 400px;
+  }
+}
+
+.notification.active {
+  opacity: 1;
+  pointer-events: all;
+  visibility: visible;
+}
+
+.error {
+  background-color: var(--error-notification);
+}
+
+.success {
+  background-color: var(--success-notification);
+}
+
+.info {
+  background-color: var(--info-notification);
+}

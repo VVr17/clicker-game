@@ -30,6 +30,7 @@
   <!-- custom styles -->
   <link rel="stylesheet" href="./css/common.css" />
   <link rel="stylesheet" href="./css/modal.css">
+  <link rel="stylesheet" href="./css/notification.css">
   <link rel="stylesheet" href="./css/header.css">
   <link rel="stylesheet" href="./css/register.css" />
   <link rel="stylesheet" href="./css/game.css">
@@ -75,13 +76,13 @@
         </div>
 
         <button class="button js-submit-btn" type="submit">
-          Create user
+          Sign in
         </button>
       </form>
     </div>
   </div>
 
-  <!-- message notification -->
+  <!-- level message notification -->
   <div class="backdrop is-hidden" data-modal>
     <div class="modal js-modal">
       <button class="btn-close" aria-label="close modal window" data-modal-close>
@@ -92,6 +93,9 @@
       <div class="message js-message"></div>
     </div>
   </div>
+
+  <!-- toast notifications -->
+  <p class="notification js-notification"></p>
 
   <script src="./js/index.js" type="module"></script>
 </body>

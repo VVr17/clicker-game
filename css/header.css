@@ -2,6 +2,7 @@
 .header {
   padding-top: 16px;
   padding-bottom: 16px;
+
   background-color: var(--main-background-color);
   backdrop-filter: blur(20px);
 
@@ -13,7 +14,7 @@
     visibility var(--transition-timing);
 }
 
-/* to hide header during registration */
+/* hide header during registration */
 .header.is-hidden {
   opacity: 0;
   pointer-events: none;
@@ -48,8 +49,8 @@
 .game-data__item {
   display: flex;
   gap: 8px;
-  color: var(--secondary-text-color);
   opacity: 1;
+  color: var(--secondary-text-color);
 }
 
 @media screen and (min-width: 768px) {
@@ -65,15 +66,16 @@
 }
 
 .game-data__value {
-  background-color: transparent;
   width: 140px;
   overflow-x: hidden;
-  border: none;
-  background-color: transparent;
-  color: inherit;
+
   font-family: inherit;
   font-size: 16px;
   font-weight: inherit;
+
+  background-color: transparent;
+  color: inherit;
+  border: none;
   outline: none;
 }
 

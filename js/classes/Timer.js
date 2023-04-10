@@ -4,12 +4,14 @@ export default class Timer {
   #timerInterval;
   #startTime;
   #elapsedTime = 0;
-  #isPaused = false;
   #pausedTime = 0;
+  #isPaused = false;
 
   constructor() {}
 
-  // start the timer, using Interval, calling updateTimer every 1000ms
+  /**
+   * Starts the timer, using Interval, calling updateTimer every 1000ms
+   */
   startTimer() {
     if (this.#isPaused) {
       // if the timer is resumed from pause
@@ -23,24 +25,33 @@ export default class Timer {
     this.#timerInterval = setInterval(() => this.updateTimer(), 500);
   }
 
+  /**
+   * Pauses the timer by stopping the timerInterval, storing the elapsed time when paused.
+   */
   pauseTimer() {
-    clearInterval(this.#timerInterval); // stop the timer
-    this.#pausedTime = this.#elapsedTime; // store the elapsed time when paused
-    this.#isPaused = true; // set the flag to true, indicating the timer is paused
+    clearInterval(this.#timerInterval);
+    this.#pausedTime = this.#elapsedTime;
+    this.#isPaused = true;
   }
 
-  // stop Timer by clear Interval
+  /**
+   * Stops Timer by clearing Interval
+   */
   stopTimer() {
     clearInterval(this.#timerInterval);
   }
 
-  // calculate the elapsed time
+  /**
+   * Calculates the elapsed time
+   */
   updateTimer() {
     this.#elapsedTime = Date.now() - this.#startTime;
     this.displayTimer();
   }
 
-  // display timer in format mm:ss
+  /**
+   * Displays timer in format mm:ss
+   */
   displayTimer() {
     const timeInputRef = document.querySelector('.js-time');
     this.timeDisplay = convertMsIntoTimeFormat(this.#elapsedTime);

@@ -20,6 +20,7 @@
     visibility var(--transition-timing);
 }
 
+/* enable button in game mode */
 .game__button.is-game-mode {
   opacity: 1;
   pointer-events: all;
@@ -27,11 +28,13 @@
 }
 
 .message {
-  padding-top: 24px;
-  padding-bottom: 24px;
   display: flex;
   flex-direction: column;
   gap: 24px;
+
+  padding-top: 24px;
+  padding-bottom: 24px;
+
   font-size: 20px;
   color: var(--hover-color);
 }

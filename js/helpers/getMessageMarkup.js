@@ -9,7 +9,8 @@
  *   - isGameFinished {boolean}: A flag indicating whether the game is finished or not. Default is `false`.
  *
  * @returns {string} - The generated HTML markup for the congratulation message.
- */ export const getMessageMarkup = ({
+ */
+export const getMessageMarkup = ({
   level,
   coins,
   timer,

@@ -2,7 +2,6 @@ import { containerRef } from '../utils/refs.js';
 
 /**
  * changeLevelTheme function updates the enemy image displayed in the game container according to the current game level.
- *
  * @param {number} level - The current game level.
  */
 export const changeLevelTheme = level => {
