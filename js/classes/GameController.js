@@ -1,6 +1,6 @@
 import { messageRef } from '../utils/refs.js';
 import { getMessageMarkup } from '../helpers/getMessageMarkup.js';
-import { getTargetedCoinsPerLevel } from '../helpers/getTargetedCoinsPerLevel.js';
+import { targetedCoinsByLevel } from '../constants/targetedCoinsByLevel.js';
 import Timer from './Timer.js';
 
 const timer = new Timer();
@@ -81,10 +81,10 @@ export default class GameController {
   }
 
   /**
-   * Get targeted coins for the next Level
+   * Get the targeted number of coins for a given game level.
    */
-  #getTargetedCoinsPerNextLevel() {
-    this.#targetedCoinsPerLevel = getTargetedCoinsPerLevel(this.#level);
+  #getTargetedCoinsPerLevel() {
+    this.#targetedCoinsPerLevel = targetedCoinsByLevel[this.#level];
   }
 
   /**
@@ -141,7 +141,7 @@ export default class GameController {
    */
   start() {
     this.isStarted = true;
-    this.#getTargetedCoinsPerNextLevel();
+    this.#getTargetedCoinsPerLevel();
     this.#getGameStatsRefs();
     timer.startTimer();
   }
@@ -180,7 +180,7 @@ export default class GameController {
   changeLevel() {
     this.#countLevel();
     this.#dropOfCoinsPerLevel();
-    this.#getTargetedCoinsPerNextLevel();
+    this.#getTargetedCoinsPerLevel();
     this.#addCongratulationMessage();
   }
 }

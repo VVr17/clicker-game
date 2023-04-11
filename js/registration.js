@@ -4,6 +4,7 @@ import { closeRegistrationForm } from './helpers/closeRegistrationForm.js';
 import { formRef } from './utils/refs.js';
 import Notification from './classes/Notification.js';
 import { openGameMode } from './helpers/openGameMode.js';
+import { toastMessages } from './constants/toastMessages.js';
 import { updateUserDataValues } from './helpers/updateUserDataValues.js';
 
 const notification = new Notification();
@@ -24,13 +25,13 @@ function onFormSubmit(event) {
 
   const userData = {
     nickname: nickname.value,
-    nickname: username.value,
+    name: username.value,
     email: email.value,
   };
 
   localStorage.setItem('user', JSON.stringify(userData));
 
-  notification.success("You've been successfully signed in");
+  notification.success(toastMessages.registered);
   addUserDataMarkup();
   updateUserDataValues(nickname.value, email.value);
   changeLevelTheme(1);

@@ -47,6 +47,6 @@ export default class Notification {
 
     setTimeout(() => {
       this.#notificationRef.classList.remove('active', `${type}`);
-    }, 3000);
+    }, 2000);
   }
 }
