@@ -10,11 +10,14 @@ export default class GameController {
   isStarted = false;
   isPaused = false;
   isTargetNumberCoinsReached = false;
+  isCompleted = false;
   isFinished = false;
 
   // game stats
   #targetedCoinsPerLevel = 0;
+  #levelStep = 1;
   #finalLevel = 5;
+  #earnCoinsStep = 1;
   #coins = 0;
   #totalCoins = 0;
   #level = 1;
@@ -43,7 +46,7 @@ export default class GameController {
    * Change level counter and updates level stats element
    */
   #countLevel() {
-    this.#level += 1;
+    this.#level += this.#levelStep;
     this.#levelInputRef.value = this.#level;
   }
 
@@ -51,7 +54,7 @@ export default class GameController {
    * Count coins for current level
    */
   #countCoinsPerLevel() {
-    this.#coins += 1;
+    this.#coins += this.#earnCoinsStep;
     this.#updateCoinsPerLevel();
   }
 
@@ -59,7 +62,7 @@ export default class GameController {
    * Count total coins earned during the game
    */
   #countTotalCoins() {
-    this.#totalCoins += 1;
+    this.#totalCoins += this.#earnCoinsStep;
     this.#totalCoinsInputRef.value = this.#totalCoins;
   }
 
@@ -95,13 +98,15 @@ export default class GameController {
   }
 
   //! new
+  //TODO: logic to start new game: isNeedToRestart? -> resetToInitialState
   #resetToInitialState() {
     this.isStarted = false;
     this.isTargetNumberCoinsReached = false;
-    this.toFinish = false;
+    this.isCompleted = false;
     this.isFinished = false;
     this.#totalCoins = 0;
     this.#level = 1;
+    this.#targetedCoinsPerLevel = 0;
 
     //TODO: update DOM stats
   }
@@ -124,16 +129,9 @@ export default class GameController {
    */
   finish() {
     this.isFinished = true;
-    this.#targetedCoinsPerLevel = 0;
     this.#dropOfCoinsPerLevel();
-
-    //! new
-    //TODO: logic to start new game: isNeedToRestart? -> resetToInitialState
-    // collectCoinsBtnRef.setAttribute('disabled', true);
-    // collectCoinsBtnRef.innerHTML = 'Start new game';
-
-    timer.stopTimer();
     this.#addCongratulationMessage();
+    timer.stopTimer();
   }
 
   /**
@@ -170,7 +168,7 @@ export default class GameController {
       this.#coins === this.#targetedCoinsPerLevel;
 
     if (this.#level === this.#finalLevel && this.isTargetNumberCoinsReached) {
-      this.toFinish = true;
+      this.isCompleted = true;
     }
   }
 

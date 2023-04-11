@@ -1,3 +1,4 @@
+import { TIMER_INTERVAL_MS } from '../constants/timeoutConstants.js';
 import { convertMsIntoTimeFormat } from '../helpers/convertMsIntoTimeFormat.js';
 
 export default class Timer {
@@ -22,7 +23,10 @@ export default class Timer {
       this.#startTime = Date.now();
     }
 
-    this.#timerInterval = setInterval(() => this.updateTimer(), 500);
+    this.#timerInterval = setInterval(
+      () => this.updateTimer(),
+      TIMER_INTERVAL_MS
+    );
   }
 
   /**

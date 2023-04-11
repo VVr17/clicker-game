@@ -23,6 +23,7 @@ function gameHandler() {
 
   if (!game.isStarted) {
     game.start();
+    notification.success(toastMessages.gameStarted);
   }
 
   if (game.isPaused) {
@@ -33,10 +34,11 @@ function gameHandler() {
   game.collectCoins();
   game.updateGameStatus();
 
-  if (game.toFinish) {
+  if (game.isCompleted) {
     game.finish();
     notification.success(toastMessages.gameFinished);
     messageModal.open();
+    changeLevelTheme(game.level, game.isFinished);
     return;
   }
 
@@ -45,6 +47,6 @@ function gameHandler() {
     game.changeLevel();
     notification.info(toastMessages.gamePaused);
     messageModal.open();
-    changeLevelTheme(game.level);
+    changeLevelTheme(game.level, game.isFinished);
   }
 }

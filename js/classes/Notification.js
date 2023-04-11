@@ -1,3 +1,5 @@
+import { TOAST_TIMEOUT_MS } from '../constants/timeoutConstants.js';
+
 export default class Notification {
   #notificationRef = document.querySelector('.js-notification');
 
@@ -47,6 +49,6 @@ export default class Notification {
 
     setTimeout(() => {
       this.#notificationRef.classList.remove('active', `${type}`);
-    }, 2000);
+    }, TOAST_TIMEOUT_MS);
   }
 }

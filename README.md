@@ -1,6 +1,3 @@
-- on finish - message- add button: 'start again'
-- add notification that the game is paused
-
 # Clicker Heroes
 
 Welcome to Clicker Heroes! This is a simple game built with HTML, CSS and
@@ -11,8 +8,6 @@ through different levels.
 
 To play Clicker Heroes, simply visit the game website
 https://clicker-heroes.netlify.app/
-
-No installation is required.
 
 # Installation
 
@@ -35,24 +30,32 @@ If you want to open the game locally:
 
 # Usage
 
-- Registration When you first visit the game website, you will be prompted to
-  register with your name and email address.
+- Registration
+
+        When you first visit the game website, you will be prompted to
+        register with your name and email address.
 
 # Gameplay
 
 - Click the button on the screen to earn points. Each click will add one point
   to your score. The game consists of 5 levels, each with a different enemy. To
-  progress to the next level, you must reach number of 20 clicks for each level.
+  progress to the next level, you must reach targeted number of clicks for each
+  level:
+
+        1 level:  15 clicks,
+        2 level:  20 clicks,
+        3 level:  25 clicks,
+        4 level:  30 clicks,
+        5 level:  35 clicks,
 
 - Your score, which is the total number of clicks you have made across all
   levels, will be displayed on the top of the screen.
 
-- Level Progression When you reach the target number of clicks for a level, a
+- Level Progression: When you reach the target number of clicks for a level, a
   message will be displayed congratulating you on reaching the next level.
 
-# Contributing
-
-If you would like to contribute to Clicker Heroes, feel free to fork the
-repository and submit a pull request.
+- The timer tracks the amount of time a player has spent in a game while
+  defeating enemies. The timer starts when the game begins, and it stops when
+  the player has defeated all the enemies.
 
 # Enjoy playing Clicker Heroes!
