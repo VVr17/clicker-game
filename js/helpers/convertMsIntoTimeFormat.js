@@ -1,5 +1,5 @@
 /**
- * convertMsIntoTimeFormat function converts a time duration in milliseconds to the mm:ss format.
+ * Converts a time duration in milliseconds to the mm:ss format.
  *
  * @param {number} milliseconds - The time duration in milliseconds to be converted.
  * @returns {string} - The converted time duration in the mm:ss format.

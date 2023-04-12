@@ -2,6 +2,7 @@ import { messageRef } from '../utils/refs.js';
 import { getMessageMarkup } from '../helpers/getMessageMarkup.js';
 import { targetedCoinsByLevel } from '../constants/targetedCoinsByLevel.js';
 import Timer from './Timer.js';
+import { finalLevel, initialLevel } from '../constants/gameConstants.js';
 
 const timer = new Timer();
 
@@ -12,15 +13,16 @@ export default class GameController {
   isTargetNumberCoinsReached = false;
   isCompleted = false;
   isFinished = false;
+  isRestarted = false;
 
   // game stats
-  #targetedCoinsPerLevel = 0;
   #levelStep = 1;
-  #finalLevel = 5;
   #earnCoinsStep = 1;
+  #finalLevel = finalLevel;
+  #level = initialLevel;
+  #targetedCoinsPerLevel = 0;
   #coins = 0;
   #totalCoins = 0;
-  #level = 1;
 
   // game stats references
   #coinsInputRef;
@@ -38,32 +40,8 @@ export default class GameController {
       coins: this.#totalCoins,
       targetedCoinsPerLevel: this.#targetedCoinsPerLevel,
       isGameFinished: this.isFinished,
-      timer: timer.timeDisplay,
+      timer: timer.time,
     });
-  }
-
-  /**
-   * Change level counter and updates level stats element
-   */
-  #countLevel() {
-    this.#level += this.#levelStep;
-    this.#levelInputRef.value = this.#level;
-  }
-
-  /**
-   * Count coins for current level
-   */
-  #countCoinsPerLevel() {
-    this.#coins += this.#earnCoinsStep;
-    this.#updateCoinsPerLevel();
-  }
-
-  /**
-   * Count total coins earned during the game
-   */
-  #countTotalCoins() {
-    this.#totalCoins += this.#earnCoinsStep;
-    this.#totalCoinsInputRef.value = this.#totalCoins;
   }
 
   /**
@@ -71,7 +49,7 @@ export default class GameController {
    */
   #dropOfCoinsPerLevel() {
     this.#coins = 0;
-    this.#updateCoinsPerLevel();
+    this.#updateCoinsPerLevelUI();
   }
 
   /**
@@ -93,45 +71,26 @@ export default class GameController {
   /**
    * Update coins stats element
    */
-  #updateCoinsPerLevel() {
+  #updateCoinsPerLevelUI() {
     this.#coinsInputRef.value = this.#coins;
   }
 
-  //! new
-  //TODO: logic to start new game: isNeedToRestart? -> resetToInitialState
-  #resetToInitialState() {
-    this.isStarted = false;
-    this.isTargetNumberCoinsReached = false;
-    this.isCompleted = false;
-    this.isFinished = false;
-    this.#totalCoins = 0;
-    this.#level = 1;
-    this.#targetedCoinsPerLevel = 0;
+  /**
+   * Update level stats element
+   */
+  #updateLevelUI() {
+    this.#levelInputRef.value = this.#level;
+  }
 
-    //TODO: update DOM stats
+  /**
+   * Update total coins stats element
+   */
+  #updateTotalCoinsUI() {
+    this.#totalCoinsInputRef.value = this.#totalCoins;
   }
 
   get level() {
     return this.#level;
-  }
-
-  /**
-   * Updates the number of coins collected per level and the total coins collected
-   */
-  collectCoins() {
-    this.#countCoinsPerLevel();
-    this.#countTotalCoins();
-  }
-
-  /**
-   * Finishes the game by resetting the targeted coins per level, disabling the coin button, stopping the timer.
-   * Specifies the message to be displayed upon finishing the game.
-   */
-  finish() {
-    this.isFinished = true;
-    this.#dropOfCoinsPerLevel();
-    this.#addCongratulationMessage();
-    timer.stopTimer();
   }
 
   /**
@@ -142,6 +101,39 @@ export default class GameController {
     this.#getTargetedCoinsPerLevel();
     this.#getGameStatsRefs();
     timer.startTimer();
+  }
+
+  /**
+   * UCounts and updates the number of coins collected per level and the total coins collected
+   */
+  collectCoins() {
+    this.#coins += this.#earnCoinsStep;
+    this.#totalCoins += this.#earnCoinsStep;
+    this.#updateCoinsPerLevelUI();
+    this.#updateTotalCoinsUI();
+  }
+
+  /**
+   * Updates the game status by checking if the targeted number of coins for the current level has been reached.
+   */
+  updateGameStatus() {
+    this.isTargetNumberCoinsReached =
+      this.#coins === this.#targetedCoinsPerLevel;
+
+    if (this.#level === this.#finalLevel && this.isTargetNumberCoinsReached) {
+      this.isCompleted = true;
+    }
+  }
+
+  /**
+   * Updates the level, drops all coins for the current level, retrieves the targeted coins for the next level.
+   */
+  changeLevel() {
+    this.#level += this.#levelStep;
+    this.#updateLevelUI();
+    this.#dropOfCoinsPerLevel();
+    this.#getTargetedCoinsPerLevel();
+    this.#addCongratulationMessage();
   }
 
   /**
@@ -161,24 +153,29 @@ export default class GameController {
   }
 
   /**
-   * Updates the game status by checking if the targeted number of coins for the current level has been reached.
+   * Finishes the game by stopping the timer.
+   * Specifies the message to be displayed upon finishing the game.
    */
-  updateGameStatus() {
-    this.isTargetNumberCoinsReached =
-      this.#coins === this.#targetedCoinsPerLevel;
-
-    if (this.#level === this.#finalLevel && this.isTargetNumberCoinsReached) {
-      this.isCompleted = true;
-    }
+  finish() {
+    this.isFinished = true;
+    this.#dropOfCoinsPerLevel();
+    this.#addCongratulationMessage();
+    timer.stopTimer();
   }
 
-  /**
-   * Updates the level by changing the level, dropping all coins for the current level, retrieving the targeted coins for the next level.
-   */
-  changeLevel() {
-    this.#countLevel();
-    this.#dropOfCoinsPerLevel();
-    this.#getTargetedCoinsPerLevel();
-    this.#addCongratulationMessage();
+  /**  Drop off all data to initial state to start new game */
+  restart() {
+    this.isStarted = false;
+    this.isTargetNumberCoinsReached = false;
+    this.isCompleted = false;
+    this.isFinished = false;
+    this.#totalCoins = 0;
+    this.#level = initialLevel;
+    this.#targetedCoinsPerLevel = 0;
+    timer.reset();
+    this.isRestarted = true;
+
+    this.#updateTotalCoinsUI();
+    this.#updateLevelUI();
   }
 }

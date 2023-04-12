@@ -1,5 +1,5 @@
 /**
- * Update user nickname and email input values.
+ * Updates user nickname and email input values.
  *
  * @param {string} nickname - The new nickname to be set as the input value.
  * @param {string} email - The new email to be set as the input value.

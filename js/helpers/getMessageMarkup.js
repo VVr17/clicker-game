@@ -1,5 +1,5 @@
 /**
- * getMessageMarkup function generates HTML markup for displaying a congratulation message.
+ * Generates HTML markup for displaying a congratulation message.
  *
  * @param {Object} options - An object containing the following properties:
  *   - level {number}: The level number the player has reached.

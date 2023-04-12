@@ -6,33 +6,6 @@ export default class Notification {
   constructor() {}
 
   /**
-   * Shows a success message
-   * @param {string} message the message to display
-   */
-  success(message) {
-    this.#addMessage(message);
-    this.#addNotificationStylesByType('success');
-  }
-
-  /**
-   * Shows a error message
-   * @param {string} message the message to display
-   */
-  error(message) {
-    this.#addMessage(message);
-    this.#addNotificationStylesByType('error');
-  }
-
-  /**
-   * Shows a info message
-   * @param {string} message the message to display
-   */
-  info(message) {
-    this.#addMessage(message);
-    this.#addNotificationStylesByType('info');
-  }
-
-  /**
    * Adds the message to the notification element
    * @param {string} message  the message to display
    */
@@ -50,5 +23,32 @@ export default class Notification {
     setTimeout(() => {
       this.#notificationRef.classList.remove('active', `${type}`);
     }, TOAST_TIMEOUT_MS);
+  }
+
+  /**
+   * Shows a info message
+   * @param {string} message the message to display
+   */
+  info(message) {
+    this.#addMessage(message);
+    this.#addNotificationStylesByType('info');
+  }
+
+  /**
+   * Shows a error message
+   * @param {string} message the message to display
+   */
+  error(message) {
+    this.#addMessage(message);
+    this.#addNotificationStylesByType('error');
+  }
+
+  /**
+   * Shows a success message
+   * @param {string} message the message to display
+   */
+  success(message) {
+    this.#addMessage(message);
+    this.#addNotificationStylesByType('success');
   }
 }
