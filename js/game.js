@@ -6,8 +6,6 @@ import Notification from './classes/Notification.js';
 import { toastMessages } from './constants/toastMessages.js';
 import { initialLevel } from './constants/gameConstants.js';
 
-let restartBtnRef;
-
 const notification = new Notification();
 const game = new GameController();
 const messageModal = new Modal({
@@ -20,10 +18,9 @@ messageModal.addHandlers();
 enemyRef.addEventListener('click', gameHandler);
 
 function gameHandler() {
-  // remove event listener from Restart button
   if (game.isRestarted) {
-    restartBtnRef.removeEventListener('click', restartGameHandler);
     game.isRestarted = false;
+    game.removeRestartBtnHandler(restartGameHandler);
   }
 
   if (game.isFinished) {
@@ -48,7 +45,7 @@ function gameHandler() {
     notification.success(toastMessages.gameFinished);
     messageModal.open();
     changeLevelContent({ level: game.level, isFinished: game.isFinished });
-    addRestartBtnHandler();
+    game.addRestartBtnHandler(restartGameHandler);
     return;
   }
 
@@ -59,11 +56,6 @@ function gameHandler() {
     messageModal.open();
     changeLevelContent({ level: game.level, isFinished: game.isFinished });
   }
-}
-
-function addRestartBtnHandler() {
-  restartBtnRef = document.querySelector('.js-restart-btn');
-  restartBtnRef.addEventListener('click', restartGameHandler);
 }
 
 function restartGameHandler() {

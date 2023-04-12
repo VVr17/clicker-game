@@ -28,6 +28,7 @@ export default class GameController {
   #coinsInputRef;
   #totalCoinsInputRef;
   #levelInputRef;
+  #restartBtnRef;
 
   constructor() {}
 
@@ -177,5 +178,22 @@ export default class GameController {
 
     this.#updateTotalCoinsUI();
     this.#updateLevelUI();
+  }
+
+  /**
+   * Gets restart button reference and adds an event listener to restart button - to start new game
+   * @param {function} restartGameHandler - Callback function that need to be called on Restart button click
+   */
+  addRestartBtnHandler(restartGameHandler) {
+    this.#restartBtnRef = document.querySelector('.js-restart-btn');
+    this.#restartBtnRef.addEventListener('click', restartGameHandler);
+  }
+
+  /**
+   * Removes restart button listener after click when the new game is about to start before remove button element
+   * @param {function} restartGameHandler - Callback function that needs to be removed
+   */
+  removeRestartBtnHandler(restartGameHandler) {
+    this.#restartBtnRef.removeEventListener('click', restartGameHandler);
   }
 }
