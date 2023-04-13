@@ -1,5 +1,5 @@
 /**
- * Generates HTML markup for displaying a congratulation message.
+ * Generates and adds HTML markup for displaying a congratulation message.
  *
  * @param {Object} options - An object containing the following properties:
  *   - level {number}: The level number the player has reached.
@@ -7,8 +7,6 @@
  *   - timer {string}: The time taken by the player to complete the game.
  *   - targetedCoinsPerLevel {number} The number of coins the player to be collected for the next level.
  *   - isGameFinished {boolean}: A flag indicating whether the game is finished or not. Default is `false`.
- *
- * @returns {string} - The generated HTML markup for the congratulation message.
  */
 export const addCongratulationMessageMarkup = ({
   level,

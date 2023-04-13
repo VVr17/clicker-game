@@ -1,7 +1,5 @@
 import Timer from './Timer.js';
 
-const timer = new Timer();
-
 export default class GameController {
   static INITIAL_LEVEL = 1;
   static #FINAL_LEVEL = 5;
@@ -14,18 +12,21 @@ export default class GameController {
     5: 35,
   };
 
+  // game timer
+  #timer = null;
+
   // game stats references
-  #coinsInputRef;
-  #totalCoinsInputRef;
-  #levelInputRef;
-  #restartBtnRef;
+  #coinsInputRef = null;
+  #levelInputRef = null;
+  #restartBtnRef = null;
+  #totalCoinsInputRef = null;
 
   // game stats
-  #levelStep = 1;
+  #coins = 0;
   #earnCoinsStep = 1;
   #level = GameController.INITIAL_LEVEL;
+  #levelStep = 1;
   #targetedCoinsForCurrentLevel = 0;
-  #coins = 0;
   #totalCoins = 0;
 
   // game status
@@ -53,7 +54,9 @@ export default class GameController {
    *
    * Also has two methods for adding and removing a restart button listener, which allows the game to be restarted after it has finished.
    */
-  constructor() {}
+  constructor() {
+    this.#timer = new Timer();
+  }
 
   get level() {
     return this.#level;
@@ -68,7 +71,7 @@ export default class GameController {
       coins: this.#totalCoins,
       targetedCoinsPerLevel: this.#targetedCoinsForCurrentLevel,
       isGameFinished: this.isFinished,
-      timer: timer.time,
+      timer: this.#timer.time,
     };
   }
 
@@ -125,7 +128,7 @@ export default class GameController {
     this.isStarted = true;
     this.#getTargetedCoinsForLevel();
     this.#getGameStatsRefs();
-    timer.startTimer();
+    this.#timer.startTimer();
   }
 
   /**
@@ -168,7 +171,7 @@ export default class GameController {
    */
   pause() {
     this.isPaused = true;
-    timer.pauseTimer();
+    this.#timer.pauseTimer();
   }
 
   /**
@@ -176,7 +179,7 @@ export default class GameController {
    */
   unpause() {
     this.isPaused = false;
-    timer.startTimer();
+    this.#timer.startTimer();
   }
 
   /**
@@ -186,7 +189,7 @@ export default class GameController {
   finish() {
     this.isFinished = true;
     this.#dropOfCoinsPerLevel();
-    timer.stopTimer();
+    this.#timer.stopTimer();
   }
 
   /**  Drop off all Game controller data to initial state to start new game */
@@ -198,7 +201,7 @@ export default class GameController {
     this.#totalCoins = 0;
     this.#level = GameController.INITIAL_LEVEL;
     this.#targetedCoinsForCurrentLevel = 0;
-    timer.reset();
+    this.#timer.reset();
     this.isRestarted = true;
 
     this.#updateTotalCoinsUI();
@@ -207,7 +210,7 @@ export default class GameController {
 
   /**
    * Gets restart button reference and adds an event listener to Restart button to start new game
-   * @param {function} restartGameHandler - Callback function that need to be called on Restart button click
+   * @param {function} restartGameHandler - Callback function that needs to be called on Restart button click
    */
   addRestartBtnHandler(restartGameHandler) {
     this.#restartBtnRef = document.querySelector('.js-restart-btn');

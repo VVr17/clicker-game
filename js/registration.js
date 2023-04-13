@@ -33,7 +33,7 @@ function onFormSubmit(event) {
     email: userEmail,
   };
 
-  console.log('user data', userData);
+  console.log('User has been successfully registered:', userData);
   notification.success(toastMessages.registered);
 
   addUserDataMarkup();

@@ -1,14 +1,13 @@
 export default class Timer {
   static #TIMER_INTERVAL_MS = 500;
 
-  #timeInputRef;
-  #timerInterval;
-
-  #startTime;
   #elapsedTime = 0;
-  #pausedTime = 0;
   #isPaused = false;
-  #time;
+  #startTime = null;
+  #pausedTime = 0;
+  #time = null;
+  #timeInputRef = null;
+  #timerInterval = null;
 
   /**
    * Represents a timer that counts elapsed time in mm:ss format.
