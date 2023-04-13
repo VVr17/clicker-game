@@ -10,22 +10,25 @@
  *
  * @returns {string} - The generated HTML markup for the congratulation message.
  */
-export const getMessageMarkup = ({
+export const addCongratulationMessageMarkup = ({
   level,
   coins,
   timer,
   targetedCoinsPerLevel,
   isGameFinished = false,
 }) => {
+  const messageRef = document.querySelector('.js-message'); // level message container ref
+
   if (isGameFinished) {
-    return `
+    messageRef.innerHTML = `
     <p>Congratulation! You won!</p>
     <p>Your score: ${coins} coins</p>
     <p>Your time: ${timer}</p>
   `;
+    return;
   }
 
-  return `
+  messageRef.innerHTML = `
     <p>Congratulation!</p>
     <p>You have reached ${level} level</p>
     <p>Your score: ${coins} coins</p>

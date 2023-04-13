@@ -1,4 +1,3 @@
-import { getMessageMarkup } from '../helpers/getMessageMarkup.js';
 import Timer from './Timer.js';
 
 const timer = new Timer();
@@ -14,9 +13,6 @@ export default class GameController {
     4: 30,
     5: 35,
   };
-
-  // level message container ref
-  #messageRef = document.querySelector('.js-message');
 
   // game stats references
   #coinsInputRef;
@@ -64,16 +60,16 @@ export default class GameController {
   }
 
   /**
-   * Adds congratulation message
+   * Gets statistic for completed level
    */
-  #addCongratulationMessage() {
-    this.#messageRef.innerHTML = getMessageMarkup({
+  get levelStats() {
+    return {
       level: this.#level,
       coins: this.#totalCoins,
       targetedCoinsPerLevel: this.#targetedCoinsForCurrentLevel,
       isGameFinished: this.isFinished,
       timer: timer.time,
-    });
+    };
   }
 
   /**
@@ -165,7 +161,6 @@ export default class GameController {
     this.#updateLevelUI();
     this.#dropOfCoinsPerLevel();
     this.#getTargetedCoinsForLevel();
-    this.#addCongratulationMessage();
   }
 
   /**
@@ -191,7 +186,6 @@ export default class GameController {
   finish() {
     this.isFinished = true;
     this.#dropOfCoinsPerLevel();
-    this.#addCongratulationMessage();
     timer.stopTimer();
   }
 

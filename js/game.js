@@ -1,3 +1,4 @@
+import { addCongratulationMessageMarkup } from './helpers/addCongratulationMessageMarkup.js';
 import { changeLevelContent, enemyRef } from './helpers/changeLevelContent.js';
 import GameController from './classes/GameController.js';
 import Modal from './classes/Modal.js';
@@ -45,7 +46,10 @@ function gameHandler() {
   if (game.isCompleted) {
     game.finish();
     notification.success(toastMessages.gameFinished);
+
+    addCongratulationMessageMarkup(game.levelStats);
     messageModal.open();
+
     changeLevelContent({ level: game.level, isFinished: game.isFinished });
     game.addRestartBtnHandler(restartGameHandler);
     return;
@@ -55,7 +59,10 @@ function gameHandler() {
     game.pause();
     game.changeLevel();
     notification.info(toastMessages.gamePaused);
+
+    addCongratulationMessageMarkup(game.levelStats);
     messageModal.open();
+
     changeLevelContent({ level: game.level, isFinished: game.isFinished });
   }
 }
