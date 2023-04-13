@@ -1,5 +1,3 @@
-import { convertMsIntoTimeFormat } from '../helpers/convertMsIntoTimeFormat.js';
-
 export default class Timer {
   static #TIMER_INTERVAL_MS = 500;
 
@@ -25,10 +23,23 @@ export default class Timer {
   }
 
   /**
+   * Converts a time duration in milliseconds to the mm:ss format.
+   */
+  #convertMsIntoTimeFormat() {
+    let seconds = Math.floor(this.#elapsedTime / 1000); // calculate the number of seconds
+    const minutes = Math.floor(seconds / 60); // calculate the number of minutes
+    seconds %= 60; // reduce seconds to less than 60 if necessary
+
+    this.#time = `${minutes.toString().padStart(2, '0')}:${seconds
+      .toString()
+      .padStart(2, '0')}`;
+  }
+
+  /**
    * Displays the current time in the HTML input element that represents the timer.
    */
   #displayTimer() {
-    this.#time = convertMsIntoTimeFormat(this.#elapsedTime);
+    this.#convertMsIntoTimeFormat();
     this.#timeInputRef.value = this.#time;
   }
 
