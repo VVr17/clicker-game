@@ -1,9 +1,10 @@
-import { TIMER_INTERVAL_MS } from '../constants/timeoutConstants.js';
 import { convertMsIntoTimeFormat } from '../helpers/convertMsIntoTimeFormat.js';
 
 export default class Timer {
-  #timerInterval;
+  static #TIMER_INTERVAL_MS = 500;
+
   #timeInputRef;
+  #timerInterval;
 
   #startTime;
   #elapsedTime = 0;
@@ -11,17 +12,22 @@ export default class Timer {
   #isPaused = false;
   #time;
 
+  /**
+   * Represents a timer that counts elapsed time in mm:ss format.
+   */
   constructor() {}
 
+  /**
+   * Returns the current time in mm:ss format.
+   */
   get time() {
     return this.#time;
   }
 
   /**
-   * Displays timer in format mm:ss
+   * Displays the current time in the HTML input element that represents the timer.
    */
   #displayTimer() {
-    // const timeInputRef = document.querySelector('.js-time');
     this.#time = convertMsIntoTimeFormat(this.#elapsedTime);
     this.#timeInputRef.value = this.#time;
   }
@@ -50,7 +56,7 @@ export default class Timer {
   }
 
   /**
-   * Starts the timer, using Interval, calling u#pdateTimer every 1000ms
+   * Starts the timer, calling updateTimer function every specified time interval
    */
   startTimer() {
     if (!this.#timeInputRef) {
@@ -61,12 +67,12 @@ export default class Timer {
 
     this.#timerInterval = setInterval(
       () => this.#updateTimer(),
-      TIMER_INTERVAL_MS
+      Timer.#TIMER_INTERVAL_MS
     );
   }
 
   /**
-   * Pauses the timer by stopping the timerInterval, storing the elapsed time when paused.
+   * Pauses the timer, storing the elapsed time when paused.
    */
   pauseTimer() {
     clearInterval(this.#timerInterval);

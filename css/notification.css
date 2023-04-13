@@ -11,9 +11,8 @@
 
   font-size: 16px;
 
-  color: var(--secondary-text-color);
   border-radius: 10px;
-  box-shadow: 5px 10px 10px 0px rgba(31, 29, 31, 0.48);
+  box-shadow: var(--toast-box-shadow);
 
   opacity: 0;
   pointer-events: none;

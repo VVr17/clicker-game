@@ -1,10 +1,8 @@
-import { changeLevelContent } from './helpers/changeLevelContent.js';
-import { enemyRef } from './utils/refs.js';
+import { changeLevelContent, enemyRef } from './helpers/changeLevelContent.js';
 import GameController from './classes/GameController.js';
 import Modal from './classes/Modal.js';
 import Notification from './classes/Notification.js';
 import { toastMessages } from './constants/toastMessages.js';
-import { initialLevel } from './constants/gameConstants.js';
 
 const notification = new Notification();
 const game = new GameController();
@@ -17,6 +15,10 @@ messageModal.addHandlers();
 
 enemyRef.addEventListener('click', gameHandler);
 
+/**
+ * Handles the logic of the game.
+ * It starts, pauses and ends the game when it meets the conditions.
+ */
 function gameHandler() {
   if (game.isRestarted) {
     game.isRestarted = false;
@@ -58,11 +60,14 @@ function gameHandler() {
   }
 }
 
+/**
+ * Restarts the game by dropping all data to initial state
+ */
 function restartGameHandler() {
   game.restart();
   changeLevelContent({
-    level: initialLevel,
+    level: GameController.INITIAL_LEVEL,
     isRestarted: game.isRestarted,
   });
-  notification.info(toastMessages.startGame);
+  notification.info(toastMessages.toStartGame);
 }

@@ -1,29 +1,34 @@
-import { initialLevel } from '../constants/gameConstants.js';
-import { containerRef, enemyRef } from '../utils/refs.js';
+import GameController from '../classes/GameController.js';
+
+export const enemyRef = document.querySelector('.js-enemy'); // level enemy reference
 
 /**
- * Updates the enemyRef image displayed in the game container according to the current game level.
- * If the game is finished add button to start new game
- * @param {number} level - The current game level.
- * @param {boolean} isFinished - Flag to check if the game is finished.
- * @param {boolean} isRestarted - Flag to check if the game wes restarted.
+ * Updates the enemy image displayed in the game according to the current game level.
+ * If the game is finished adds button to start new game.
+ *
+ * @param {Object} options - An object containing the following properties:
+ *   - level {number}: The level number the player has reached.
+ *   - isFinished {boolean}: Flag to check if the game is finished.
+ *   - isRestarted {boolean}: Flag to check if the game is restarted.
  */
 export const changeLevelContent = ({
   level,
   isFinished = false,
   isRestarted = false,
 }) => {
+  const containerRef = document.querySelector('.js-container'); // main container ref
+
   // removes restart button to start new game
   if (isRestarted) {
     containerRef.firstElementChild.remove();
   }
 
   // removes enemy from previous level if its not first level
-  if (level !== initialLevel) {
+  if (level !== GameController.INITIAL_LEVEL) {
     enemyRef.firstElementChild.remove();
   }
 
-  // if game finished adds button "Start new game"
+  // adds button "Start new game" if game finished
   if (isFinished) {
     const restartBtn = `
       <button class="button js-restart-btn" type="button">

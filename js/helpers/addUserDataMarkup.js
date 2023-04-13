@@ -1,14 +1,15 @@
 import { gameStatsDataItems } from '../constants/gameStatsData.js';
 import { userDataItems } from '../constants/userData.js';
-import { gameDataContainerRef } from '../utils/refs.js';
 
 /**
- * Adds user data markup to the game data container
- * @param {Array} userDataItems - An array of objects containing the label and name properties for each user data item
- * @param {Array} gameStatsDataItems - An array of objects containing the label, name and value properties for each game stats data item
- * @param {HTMLElement} gameDataContainerRef - A reference to the game data container element
+ * Adds user data markup to the game data container.
+ *
+ *    - userDataItems {Array}  - An array of objects containing the label and name properties for each user data item
+ *    - gameStatsDataItems {Array} - An array of objects containing the label, name and value properties for each game stats data item
  */
 export const addUserDataMarkup = () => {
+  const gameStatsContainerRef = document.querySelector('.js-game-data'); // game statistics container ref
+
   const userData = `
     <ul class="game-data__list user-data">
       ${userDataItems
@@ -39,5 +40,5 @@ export const addUserDataMarkup = () => {
       </ul>
     `;
 
-  gameDataContainerRef.insertAdjacentHTML('afterbegin', userData + gameData);
+  gameStatsContainerRef.insertAdjacentHTML('afterbegin', userData + gameData);
 };

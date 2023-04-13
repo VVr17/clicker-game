@@ -1,12 +1,37 @@
-import { messageRef } from '../utils/refs.js';
 import { getMessageMarkup } from '../helpers/getMessageMarkup.js';
-import { targetedCoinsByLevel } from '../constants/targetedCoinsByLevel.js';
 import Timer from './Timer.js';
-import { finalLevel, initialLevel } from '../constants/gameConstants.js';
 
 const timer = new Timer();
 
 export default class GameController {
+  static INITIAL_LEVEL = 1;
+  static #FINAL_LEVEL = 5;
+
+  static #TARGETED_COINS_BY_LEVEL = {
+    1: 15,
+    2: 20,
+    3: 25,
+    4: 30,
+    5: 35,
+  };
+
+  // level message container ref
+  #messageRef = document.querySelector('.js-message');
+
+  // game stats references
+  #coinsInputRef;
+  #totalCoinsInputRef;
+  #levelInputRef;
+  #restartBtnRef;
+
+  // game stats
+  #levelStep = 1;
+  #earnCoinsStep = 1;
+  #level = GameController.INITIAL_LEVEL;
+  #targetedCoinsForCurrentLevel = 0;
+  #coins = 0;
+  #totalCoins = 0;
+
   // game status
   isStarted = false;
   isPaused = false;
@@ -15,31 +40,37 @@ export default class GameController {
   isFinished = false;
   isRestarted = false;
 
-  // game stats
-  #levelStep = 1;
-  #earnCoinsStep = 1;
-  #finalLevel = finalLevel;
-  #level = initialLevel;
-  #targetedCoinsPerLevel = 0;
-  #coins = 0;
-  #totalCoins = 0;
-
-  // game stats references
-  #coinsInputRef;
-  #totalCoinsInputRef;
-  #levelInputRef;
-  #restartBtnRef;
-
+  /**
+   *  Controls the game's flow and manage the game's state.
+   *
+   * Has the properties represent states of the game: whether the game has started, is paused, has been completed, or is finished.
+   *
+   * Manages game statistics: the level, the number of coins earned and the number of coins needed to complete each level.
+   *
+   * Methods for managing the game state, such as:
+   *    - start(), which starts the game by starting the timer,
+   *    - collectCoins(), which updates the number of coins collected per level and the total number of coins collected,
+   *    - changeLevel(), which updates the game level,
+   *    - pause() and unpause() the game,
+   *    - finish() the game
+   *    - restart() the game.
+   *
+   * Also has two methods for adding and removing a restart button listener, which allows the game to be restarted after it has finished.
+   */
   constructor() {}
 
+  get level() {
+    return this.#level;
+  }
+
   /**
-   * Adds congratulation message to the message element
+   * Adds congratulation message
    */
   #addCongratulationMessage() {
-    messageRef.innerHTML = getMessageMarkup({
+    this.#messageRef.innerHTML = getMessageMarkup({
       level: this.#level,
       coins: this.#totalCoins,
-      targetedCoinsPerLevel: this.#targetedCoinsPerLevel,
+      targetedCoinsPerLevel: this.#targetedCoinsForCurrentLevel,
       isGameFinished: this.isFinished,
       timer: timer.time,
     });
@@ -65,8 +96,9 @@ export default class GameController {
   /**
    * Get the targeted number of coins for a given game level.
    */
-  #getTargetedCoinsPerLevel() {
-    this.#targetedCoinsPerLevel = targetedCoinsByLevel[this.#level];
+  #getTargetedCoinsForLevel() {
+    this.#targetedCoinsForCurrentLevel =
+      GameController.#TARGETED_COINS_BY_LEVEL[this.#level];
   }
 
   /**
@@ -90,22 +122,18 @@ export default class GameController {
     this.#totalCoinsInputRef.value = this.#totalCoins;
   }
 
-  get level() {
-    return this.#level;
-  }
-
   /**
    * Starts the game by starting the timer.
    */
   start() {
     this.isStarted = true;
-    this.#getTargetedCoinsPerLevel();
+    this.#getTargetedCoinsForLevel();
     this.#getGameStatsRefs();
     timer.startTimer();
   }
 
   /**
-   * UCounts and updates the number of coins collected per level and the total coins collected
+   * Updates the number of coins collected per level and the total coins collected
    */
   collectCoins() {
     this.#coins += this.#earnCoinsStep;
@@ -119,9 +147,12 @@ export default class GameController {
    */
   updateGameStatus() {
     this.isTargetNumberCoinsReached =
-      this.#coins === this.#targetedCoinsPerLevel;
+      this.#coins === this.#targetedCoinsForCurrentLevel;
 
-    if (this.#level === this.#finalLevel && this.isTargetNumberCoinsReached) {
+    if (
+      this.#level === GameController.#FINAL_LEVEL &&
+      this.isTargetNumberCoinsReached
+    ) {
       this.isCompleted = true;
     }
   }
@@ -133,12 +164,12 @@ export default class GameController {
     this.#level += this.#levelStep;
     this.#updateLevelUI();
     this.#dropOfCoinsPerLevel();
-    this.#getTargetedCoinsPerLevel();
+    this.#getTargetedCoinsForLevel();
     this.#addCongratulationMessage();
   }
 
   /**
-   * Pauses the game by setting the isPaused property to true and pausing the timer.
+   * Pauses the game by pausing the timer.
    */
   pause() {
     this.isPaused = true;
@@ -146,7 +177,7 @@ export default class GameController {
   }
 
   /**
-   * Unpauses the game by setting the isPaused property to false and starting the timer.
+   * Unpauses the game by starting the timer.
    */
   unpause() {
     this.isPaused = false;
@@ -164,15 +195,15 @@ export default class GameController {
     timer.stopTimer();
   }
 
-  /**  Drop off all data to initial state to start new game */
+  /**  Drop off all Game controller data to initial state to start new game */
   restart() {
     this.isStarted = false;
     this.isTargetNumberCoinsReached = false;
     this.isCompleted = false;
     this.isFinished = false;
     this.#totalCoins = 0;
-    this.#level = initialLevel;
-    this.#targetedCoinsPerLevel = 0;
+    this.#level = GameController.INITIAL_LEVEL;
+    this.#targetedCoinsForCurrentLevel = 0;
     timer.reset();
     this.isRestarted = true;
 
@@ -181,7 +212,7 @@ export default class GameController {
   }
 
   /**
-   * Gets restart button reference and adds an event listener to restart button - to start new game
+   * Gets restart button reference and adds an event listener to Restart button to start new game
    * @param {function} restartGameHandler - Callback function that need to be called on Restart button click
    */
   addRestartBtnHandler(restartGameHandler) {
@@ -190,8 +221,8 @@ export default class GameController {
   }
 
   /**
-   * Removes restart button listener after click when the new game is about to start before remove button element
-   * @param {function} restartGameHandler - Callback function that needs to be removed
+   * Removes restart button listener after click when the new game is about to start before removing button element
+   * @param {function} restartGameHandler - Callback function to remove listener
    */
   removeRestartBtnHandler(restartGameHandler) {
     this.#restartBtnRef.removeEventListener('click', restartGameHandler);

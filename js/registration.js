@@ -1,8 +1,7 @@
 import { addUserDataMarkup } from './helpers/addUserDataMarkup.js';
 import { changeLevelContent } from './helpers/changeLevelContent.js';
 import { closeRegistrationForm } from './helpers/closeRegistrationForm.js';
-import { formRef } from './utils/refs.js';
-import { initialLevel } from './constants/gameConstants.js';
+import GameController from './classes/GameController.js';
 import Notification from './classes/Notification.js';
 import { openGameMode } from './helpers/openGameMode.js';
 import { toastMessages } from './constants/toastMessages.js';
@@ -10,7 +9,8 @@ import { updateUserDataValues } from './helpers/updateUserDataValues.js';
 
 const notification = new Notification();
 
-formRef.addEventListener('submit', onFormSubmit);
+const formRef = document.querySelector('.js-form'); // registration form ref
+formRef.addEventListener('submit', onFormSubmit); // submit form listener
 
 function onFormSubmit(event) {
   event.preventDefault();
@@ -38,7 +38,7 @@ function onFormSubmit(event) {
 
   addUserDataMarkup();
   updateUserDataValues(userNickname, userEmail);
-  changeLevelContent({ level: initialLevel });
+  changeLevelContent({ level: GameController.INITIAL_LEVEL });
   closeRegistrationForm();
   openGameMode();
 }

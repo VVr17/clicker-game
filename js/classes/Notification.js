@@ -1,8 +1,25 @@
-import { TOAST_TIMEOUT_MS } from '../constants/timeoutConstants.js';
-
 export default class Notification {
+  static #TOAST_TIMEOUT_MS = 2000;
+
+  static #Types = {
+    INFO: 'info',
+    SUCCESS: 'success',
+    ERROR: 'error',
+  };
+
   #notificationRef = document.querySelector('.js-notification');
 
+  /**
+   * Handles the displaying of toast notifications.
+   *
+   * It has "success", "info", "errors" types.
+   */
+
+  /**
+   * Handles the displaying of toast notifications.
+   *
+   * It has "success", "info", "errors" types.
+   */
   constructor() {}
 
   /**
@@ -15,14 +32,15 @@ export default class Notification {
 
   /**
    * Adds the appropriate styles for the notification type
-   * @param {string} type info | failure | success
+   * Automatically hides a toast notification after it is displayed
+   * @param {string} type info | error | success
    */
   #addNotificationStylesByType(type) {
     this.#notificationRef.classList.add('active', `${type}`);
 
     setTimeout(() => {
       this.#notificationRef.classList.remove('active', `${type}`);
-    }, TOAST_TIMEOUT_MS);
+    }, Notification.#TOAST_TIMEOUT_MS);
   }
 
   /**
@@ -31,7 +49,7 @@ export default class Notification {
    */
   info(message) {
     this.#addMessage(message);
-    this.#addNotificationStylesByType('info');
+    this.#addNotificationStylesByType(Notification.#Types.INFO);
   }
 
   /**
@@ -40,7 +58,7 @@ export default class Notification {
    */
   error(message) {
     this.#addMessage(message);
-    this.#addNotificationStylesByType('error');
+    this.#addNotificationStylesByType(Notification.#Types.ERROR);
   }
 
   /**
@@ -49,6 +67,6 @@ export default class Notification {
    */
   success(message) {
     this.#addMessage(message);
-    this.#addNotificationStylesByType('success');
+    this.#addNotificationStylesByType(Notification.#Types.SUCCESS);
   }
 }
